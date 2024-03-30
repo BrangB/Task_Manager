@@ -17,11 +17,13 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-image: linear-gradient(to left top, 
+  #e6f0fa, /* Red */
+  #f1f1e4, /* Green */
+  #edf6ff  /* Blue */
+);
+  font-size: 17px;
+  color: white;
+
+  height: 100vh;
 }
