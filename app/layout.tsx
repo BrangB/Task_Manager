@@ -19,10 +19,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
 
-  const {userId} = auth();
 
   return (
-    <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
       <html lang="en">
         <head>
           <link
@@ -36,12 +34,11 @@ export default function RootLayout({
         <body className={inter.className}>
           <ContextProvider>
             <GlobalStylesProvider>
-              {userId && <Sidebar />}
+              {/* {userId && <Sidebar />} */}
               {children}
             </GlobalStylesProvider>
           </ContextProvider>
         </body>
       </html>
-    </ClerkProvider>
   );
 }

@@ -8,7 +8,7 @@ interface Props {
 
 const GlobalStylesProvider = ({children} : Props) => {
   return (
-    <div className='p-5 flex gap-8 h-screen flex-row'>
+    <div>
         {children}
     </div>
   )
