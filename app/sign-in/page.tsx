@@ -35,7 +35,8 @@ const Page = () => {
                         password: hashedPassword
                     },
                 });           
-                let user = await res.data.user     
+                let user = await res.data.user   
+                console.log(user)  
 
                 if(user.length == 0){
                     toast.error("Wrong Email Address")
