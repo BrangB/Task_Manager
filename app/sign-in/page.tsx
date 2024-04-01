@@ -29,7 +29,7 @@ const Page = () => {
         } else {
             try{
                 const hashedPassword = await hashPassword(inputData.password);
-                const res = await axios.post(`${process.env.NEXTAUTH_URL}api/loginuser`, {
+                const res = await axios.post(`api/loginuser`, {
                     data: {
                         email: inputData.email,
                         password: hashedPassword
