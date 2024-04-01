@@ -5,8 +5,6 @@ export async function POST(req: Request){
     try {
         const {data} = await req.json(); // Assuming you're passing email as a query parameter
 
-        console.log(data.email)
-
         const user  = await prisma?.user_data.findMany({
             where: {
                 email: data.email
