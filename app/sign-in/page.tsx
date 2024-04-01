@@ -4,15 +4,16 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import axios from 'axios'
+import bcrypt from "bcryptjs"
 
 const Page = () => {
     const [inputData, setInputData] = useState({ email: "", password: "" })
 
-    // const hashPassword = async (password : string) => {
-    //     const saltRounds = 10; // Number of salt rounds
-    //     const hashedPassword = await bcrypt.hash(password, saltRounds);
-    //     return hashedPassword;
-    // }
+    const hashPassword = async (password : string) => {
+        const saltRounds = 10; // Number of salt rounds
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        return hashedPassword;
+    }
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
@@ -23,10 +24,17 @@ const Page = () => {
             toast.error("Password should have at least 5 characters")
         } else {
             try{
-                // const hashedPassword = await hashPassword(inputData.password);
-                console.log(inputData)
-                const res = await axios.post("api/users", {email: inputData.email, password: inputData.password})
+                const hashedPassword = await hashPassword(inputData.password);
+                const res = await axios.post("api/loginuser", {
+                    data: {
+                        email: inputData.email,
+                        password: hashedPassword
+                    },
+                    cache: 'no-store'
+                });                
                 toast.success("User Created Success")
+                setInputData({email: "", password: ""})
+                console.log(res)
             }catch(err){
                 toast.error("Creating user error")
             }
