@@ -4,6 +4,7 @@ import Link from 'next/link'
 import toast from 'react-hot-toast'
 import axios from 'axios'
 import bcrypt from "bcryptjs"
+import  { useRouter } from 'next/navigation'
 
 const Page = () => {
     const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ const Page = () => {
         password: "",
         confirmPassword: ""
     });
+    const router = useRouter();
 
     const hashPassword = async (password : string) => {
         const saltRounds = 10; // Number of salt rounds
@@ -22,7 +24,7 @@ const Page = () => {
         event.preventDefault();
         const { email, password, confirmPassword } = formData;
         
-        if (email === '' || password === '' || confirmPassword === '') {
+        if (email.trim() === '' || password.trim() === '' || confirmPassword.trim() === '') {
             toast.error("Please fill out all fields");
         } else if (password !== confirmPassword) {
             toast.error("Passwords do not match");
@@ -31,9 +33,9 @@ const Page = () => {
         } else {
             try{
                 const hashedPassword = await hashPassword(formData.password);
-                const res = await axios.post("api/users", {email: formData.email, password: hashedPassword})
+                const res = await axios.post("api/users", {email: formData.email.trim(), password: hashedPassword})
                 toast.success("User Created Success")
-                console.log(res)
+                router.push("/")
             }catch(err){
                 toast.error("Creating user error")
             }
@@ -47,7 +49,7 @@ const Page = () => {
                 <form onSubmit={handleSubmit} className='flex flex-col items-center justify-center gap-8 w-full'>
                     <div className="emailInput flex flex-col gap-3 w-full">
                         <label htmlFor="email" className='font-semibold border-l-2 border-green-500 px-2'>Email</label>
-                        <input type="email" id="email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value}) } placeholder='Enter your email' className='p-2 text-md bg-transparent border rounded-sm placeholder:text-sm border-gray-500 outline-green-500'  />
+                        <input type="email" id="email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value.trim()}) } placeholder='Enter your email' className='p-2 text-md bg-transparent border rounded-sm placeholder:text-sm border-gray-500 outline-green-500'  />
                     </div>
                     <div className="passwordInput flex flex-col gap-3 w-full">
                         <label htmlFor="password" className='font-semibold border-l-2 border-green-500 px-2'>Password</label>
