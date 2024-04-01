@@ -15,6 +15,6 @@ export async function POST(req: Request){
     } catch (error) {
         console.error("Error finding user:", error);
         // Return an error response with status code 500
-        return NextResponse.json({ error: "Error finding user", status: 500 });
+        return NextResponse.json({ error: error, status: 500 });
     }
 }
