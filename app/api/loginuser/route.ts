@@ -5,7 +5,7 @@ export async function POST(req: Request){
     try {
         const {data} = await req.json(); // Assuming you're passing email as a query parameter
 
-        const user  = await prisma?.user_data.findMany({
+        const user  = await prisma.user_data.findMany({
             where: {
                 email: data.email
             }
@@ -15,6 +15,6 @@ export async function POST(req: Request){
     } catch (error) {
         console.error("Error finding user:", error);
         // Return an error response with status code 500
-        return NextResponse.json({ error: error, status: 500 });
+        return NextResponse.json({ error: "Find User Error", status: 500 });
     }
 }
