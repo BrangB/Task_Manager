@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 import prisma from "@/app/utils/connect";
 
-export async function POST(req: Request){
+export const POST = async(req: Request) => {
     try {
         const {data} = await req.json(); // Assuming you're passing email as a query parameter
 
-        const user  = await prisma.user_data.findMany({
+        const user  = await prisma?.user_data.findMany({
             where: {
                 email: data.email
             }

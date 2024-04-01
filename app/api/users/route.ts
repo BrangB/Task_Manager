@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import prisma from "@/app/utils/connect";
 import { v4 as uuidv4 } from 'uuid';
 
-export async function POST(req: Request){
+export const POST = async(req: Request) => {
     try {
         const { email, password } = await req.json();
         const userId = uuidv4();
