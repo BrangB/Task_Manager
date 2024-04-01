@@ -29,7 +29,7 @@ const Page = () => {
         } else {
             try{
                 const hashedPassword = await hashPassword(inputData.password);
-                const res = await axios.post("api/loginuser", {
+                const res = await axios.post(`${process.env.API_URL_GLOBAL}api/loginuser`, {
                     data: {
                         email: inputData.email,
                         password: hashedPassword
@@ -57,6 +57,7 @@ const Page = () => {
                 }
             }catch(err){
                 toast.error("Login Failed")
+                console.log(err)
             }
         }
     }
