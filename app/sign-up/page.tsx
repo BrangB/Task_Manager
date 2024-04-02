@@ -1,5 +1,5 @@
 "use client"
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import toast from 'react-hot-toast'
 import axios from 'axios'
@@ -59,6 +59,7 @@ const Page = () => {
                     const userData = await axios.post("api/users", {email: formData.email.trim(), password: hashedPassword})
                     toast.success("User Created Success")
                     setLoading(false)
+                    localStorage.setItem("userLogin", JSON.stringify(userData))
                     router.push("/")
                 }
             }catch(err){
@@ -67,6 +68,12 @@ const Page = () => {
             }
         }
     };
+
+    useEffect(() => {
+        if(localStorage.getItem("userLogin")){
+            router.push("/")
+        }
+    } , [])
 
     return (
         <motion.div

@@ -17,7 +17,11 @@ const Sidebar = () => {
     const handlerClick = (link : string) : void => {
         router.push(link)
     }
-    console.log(pathname)
+    const signOut = () => {
+        localStorage.removeItem("userLogin");
+        router.push("/sign-in")
+    }
+
   return (
     <div className={`relative min-w-[250px] text-black backdrop-blur-md shadow-xl bg-[#ffffff67] justify-between rounded-md flex flex-col py-5 items-center`}>
         <div className="profile flex-col gap-4 text-sm uppercase flex items-center justify-center">
@@ -35,13 +39,13 @@ const Sidebar = () => {
                     return(
                         <li className={`nav-item flex duration-200 w-full px-8 py-1 hover:text-[#6169db] rounded-[3px] ${pathname == item.link ? 'border-r-4 border-[#4d72ee] text-[#3753ac]' : ''}`} key={item.id} onClick={() => handlerClick(item.link)}>
                             <p className='mr-5'>{item.icon}</p>
-                            <Link href={item.link} className='text-sm flex items-center '>{item.title}</Link>
+                            <Link href={item.link} className='text-sm flex items-center'>{item.title}</Link>
                         </li>
                     )
                 })
             }
         </ul>
-        <button>Sign Out</button>
+        <button onClick={signOut}>Sign Out</button>
     </div>
   )
 }

@@ -1,6 +1,6 @@
 "use client"
 import Link from 'next/link'
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import toast from 'react-hot-toast'
 import axios from "axios"
 import bcrypt from "bcryptjs"
@@ -51,6 +51,7 @@ const Page = () => {
 
                     if(passwordMatch){
                         toast.success("User Login Successfully")
+                        localStorage.setItem('userLogin', JSON.stringify(user[0]) )
                         router.push("/");
                         setLoading(false)
                     }else{
@@ -66,6 +67,12 @@ const Page = () => {
             }
         }
     }
+
+    useEffect(() => {
+        if(localStorage.getItem("userLogin")){
+            router.push("/")
+        }
+    } , [])
 
     return (
         <motion.div 
