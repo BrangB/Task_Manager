@@ -13,7 +13,7 @@ import BtnAnimation from '../ButtonAnimation/BtnAnimation';
 
 const Sidebar = () => {
 
-    const [showForm, setShowForm] = useState(true);
+    const [showForm, setShowForm] = useState(false);
     const [formData, setFormData] = useState({
         title: "",
         description: "",
