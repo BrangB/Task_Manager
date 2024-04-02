@@ -1,6 +1,7 @@
 "use client"
 import { useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import Tasks from "./tasks/Tasks";
 
 export default function Home() {
 
@@ -16,6 +17,7 @@ export default function Home() {
 
   return (
     <div>
+      <Tasks />
     </div>
 
   )
