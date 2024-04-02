@@ -1,12 +1,12 @@
 "use client"
 import { useEffect } from "react";
-import Tasks from "./Tasks/Tasks";
-import Sidebar from "./components/Sidebar/Sidebar";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function Home() {
 
   const router = useRouter();
+  const pathname = usePathname();
+  const isSignInRoute = pathname === '/sign-in' || pathname === "/sign-up";
 
   useEffect(() => {
     if(!(localStorage.getItem("userLogin"))){
@@ -16,8 +16,6 @@ export default function Home() {
 
   return (
     <div>
-        <Sidebar />
-        <Tasks />
     </div>
 
   )

@@ -9,12 +9,14 @@
 }
 
 body {
-  background-image: linear-gradient(to left top, 
-  #e6f0fa, /* Red */
-  #f1f1e4, /* Green */
-  #edf6ff  /* Blue */
-);
+  background: #f1f1f1;
   font-size: 17px;
-  color: white;
   overflow: hidden;
+}
+
+.creatTaskBtn {
+  background-image: linear-gradient(to left top, 
+  #73e480,
+  #319220
+);
 }
