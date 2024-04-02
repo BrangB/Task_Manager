@@ -11,6 +11,7 @@ import BtnAnimation from '../components/ButtonAnimation/BtnAnimation'
 const Page = () => {
     const [inputData, setInputData] = useState({ email: "", password: "" })
     const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false)
     const emailInputRef = useRef<HTMLInputElement>(null);
     const passwordInputRef = useRef<HTMLInputElement>(null);
     const router = useRouter();
@@ -88,9 +89,12 @@ const Page = () => {
                         <label htmlFor="email" className='font-semibold border-l-2 border-green-500 px-2'>Email</label>
                         <input type="email" ref={emailInputRef} id="email" value={inputData.email} onChange={(e) => setInputData({ ...inputData, email: e.target.value.trim() })} placeholder='Enter your email' className='p-2 text-md bg-transparent border rounded-sm placeholder:text-sm border-gray-500 outline-green-500' />
                     </div>
-                    <div className="passwordInput flex flex-col gap-3 w-full">
+                    <div className="passwordInput flex flex-col gap-3 w-full relative">
                         <label htmlFor="password" className='font-semibold border-l-2 border-green-500 px-2'>Password</label>
-                        <input type="password" ref={passwordInputRef} id="password" value={inputData.password} onChange={(e) => setInputData({ ...inputData, password: e.target.value.trim() })} placeholder='Enter your password' className='p-2 text-md bg-transparent border rounded-sm placeholder:text-sm border-gray-500 outline-green-500' />
+                        <input type={showPassword ? "text" : "password"} ref={passwordInputRef} id="password" value={inputData.password} onChange={(e) => setInputData({ ...inputData, password: e.target.value.trim() })} placeholder='Enter your password' className='p-2 text-md bg-transparent border rounded-sm placeholder:text-sm border-gray-500 outline-green-500' />
+                        {
+                            showPassword ? <i className="fa-solid fa-eye-slash absolute top-1 right-2 cursor-pointer" onClick={() => setShowPassword(!showPassword)}></i> : <i className="fa-solid fa-eye absolute top-1 right-2 cursor-pointer" onClick={() => setShowPassword(!showPassword)}></i>
+                        }
                     </div>
                     <button type="submit" className='p-2 bg-green-500 hover:bg-green-600 duration-150 w-full text-white uppercase font-semibold tracking-widest flex items-center justify-center'>{loading ? <BtnAnimation /> : "LogIn"}</button>
                 </form>

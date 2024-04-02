@@ -3,15 +3,15 @@ import prisma from "@/app/utils/connect";
 
 export const POST = async(req: Request) => {
     try{
-        const { user_id, title, description, date, completed, important } = await req.json();
+        const { user_id, title, description, date, isCompleted, isImportant } = await req.json();
         const task = await prisma?.task.create({
             data: {
                 user_id,
                 title,
                 description,
                 date,
-                isCompleted: completed,
-                isImportant: important
+                isCompleted: isCompleted,
+                isImportant: isImportant
             }
         })
         return NextResponse.json({task, message: "Creating Task Successfully", status: 200})

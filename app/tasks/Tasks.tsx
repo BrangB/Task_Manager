@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 import React, {useEffect, useState} from 'react'
 import { motion } from 'framer-motion';
 import axios from 'axios';
+import EmptyFile from '../components/ButtonAnimation/EmptyFile';
 
 const page = () => {
 
@@ -36,8 +37,7 @@ useEffect(() => {
 useEffect(() => {
   const fetchData = async () => {
     try {
-      if (user_id) { // Check if user_id exists
-        console.log(user_id)
+      if (user_id) { 
         const tasksfromServer = await axios.post("/api/tasks/gettasks", { user_id });
         setTasks(tasksfromServer.data.tasks);
       }
@@ -91,8 +91,21 @@ useEffect(() => {
           )
         })
       }
+      {
+        tasks.length == 0 && (
+          <motion.div 
+          initial={{ opacity:0 , scale: .2}}
+          animate={{ opacity:1 , scale: 1 }}
+          exit={{ scale: .2, opacity: 0 }}
+          transition={{ duration: .4  }}   
+          className='flex flex-col items-center justify-center'>
+            <EmptyFile />
+            <p className='text-xl font-bold'>Add New <span className='text-green-600'>Task</span></p>
+          </motion.div>
+        )
+      }
 
-        {
+        {/* {
           Array(12).fill(5).map((_, i) => (
             <motion.div 
             initial={{ opacity:0 , x: -200}}
@@ -114,7 +127,7 @@ useEffect(() => {
               </div>
             </motion.div>
           ))
-        }
+        } */}
       </div>
       <button className="uppercase px-3 py-2 bg-green-600 text-white text-sm" onClick={signOut}>Sign OUT</button>
     </div>
