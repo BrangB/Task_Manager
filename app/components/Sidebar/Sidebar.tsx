@@ -67,6 +67,13 @@ const Sidebar = () => {
                     isImportant: false
                 })
                 setLoading(false);
+                if(pathname == "/"){
+                    router.push("/important")
+                }else{
+                    router.push("/")
+                }
+
+                setShowForm(false);
             }catch(err){
                 console.log(err);
                 toast.error("Creating New Tasks Fails")

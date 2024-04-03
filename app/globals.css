@@ -21,6 +21,14 @@ body {
 );
 }
 
+.testWrap {
+  width: 125px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }

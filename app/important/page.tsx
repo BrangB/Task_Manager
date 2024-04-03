@@ -67,15 +67,15 @@ const page = () => {
               exit={{ x: -200, opacity: 0 }}
               transition={{ duration: 0.4, delay: 0.3 * i }}     
               key={task.id}
-              className="task p-4 max-w-[150px] min-h-[160px] max-h-[220px] bg-white rounded-md flex flex-col justify-between cursor-pointer"
+              className="task p-4 max-w-[150px] min-h-[160px] max-h-[180px] bg-white rounded-md flex flex-col items-center justify-between cursor-pointer"
             >
-              <h1 className="title text-sm text-green-700 font-bold text-left">{task.title}</h1>
+              <h1 className="title text-[18px] text-green-700 font-bold text-left testWrap">{task.title}</h1>
               <p className='text-[13px] max-h-[50px] hidden md:flex mt-1 overflow-hidden line-clamp-1'>{task.description}</p>
               <div className='flex flex-col gap-2'>
-                <span className="date text-sm">{task.date}</span>
+                <span className="date text-[14px] text-gray-700">{task.date}</span>
                 <div className='flex items-center justify-between gap-3 flex-wrap'>
                   <span className={`px-2 py-1 ${task.isCompleted ? 'bg-green-500' : 'bg-yellow-500'} text-sm text-white rounded-sm cursor-pointer`}>{task.isCompleted ? 'Completed' : 'Incomplete'}</span>
-                  <div className="icons flex gap-3 text-md mt-1">
+                  <div className="icons flex gap-5 text-md mt-1">
                     <i className="fa-solid fa-pen-to-square text-green-700 cursor-pointer"></i>
                     <i className="fa-solid fa-trash text-red-600 cursor-pointer"></i>
                   </div>
