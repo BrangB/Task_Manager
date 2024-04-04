@@ -126,7 +126,7 @@ const Sidebar = () => {
                                 return(
                                     <li className={`nav-item flex flex-col gap-2 items-center justify-center duration-200 w-full text-[#000000b9] py-1 hover:text-green-600 rounded-[3px] ${pathname == item.link ? 'border-b-3 border-green-600 text-green-500' : ''}`} key={item.id} onClick={() => handlerClick(item.link)}>
                                         <p className='text-md'>{item.icon}</p>
-                                        <Link href={item.link} className='text-sm flex items-center'>{item.title}</Link>
+                                        <Link href={item.link} className='text-sm flex items-center text-center truncate'>{item.title}</Link>
                                     </li>
                                 )
                             })

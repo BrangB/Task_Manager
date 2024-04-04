@@ -6,7 +6,8 @@ import axios from 'axios';
 import EmptyFile from '../ButtonAnimation/EmptyFile';
 import toast from 'react-hot-toast';
 import StatusLoading from '../ButtonAnimation/StatusLoading';
-import { GlobalContext } from '@/app/context/GlobalProvider';
+import { GlobalContext, GlobalUpdateForm } from '@/app/context/GlobalProvider';
+import UpdateForm from '../UpdateForm/UpdateForm';
 
 interface DisplayTasksProps {
     displayData: string;
@@ -24,10 +25,12 @@ const DisplayTasks: React.FC<DisplayTasksProps> = ({displayData}) => {
 
   const router = useRouter();
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [selectedTask, setSelectedTask] = useState({});
   const [user_id, setUser_id] = useState("");
   const [loading, setLoading] = useState(false);
 
   const {globalTasks, setGlobalTasks} = useContext(GlobalContext);
+  const { showUpdateForm, setShowUpdateForm } = useContext(GlobalUpdateForm)
 
 useEffect(() => {
   const userLoginString = localStorage.getItem('userLogin');
@@ -150,8 +153,14 @@ const changeStatus = async(id:string, status: boolean) => {
   }
 }
 
+const UpdateData = (task : object) => {
+  setSelectedTask(task)
+  setShowUpdateForm(true)
+}
+
   return (
     <>
+      <UpdateForm selectedTask={selectedTask} setSelectedTask={setSelectedTask} />
       {
         globalTasks.length > 0 && globalTasks.map((task : Task, i: number) => {
           return (
@@ -173,7 +182,7 @@ const changeStatus = async(id:string, status: boolean) => {
                   {loading ? <StatusLoading /> : (task.isCompleted ? 'Completed' : 'Incomplete')}
                 </span>
                   <div className="icons flex gap-5 text-md mt-1">
-                    <i className="fa-solid fa-pen-to-square text-green-700 cursor-pointer"></i>
+                    <i className="fa-solid fa-pen-to-square text-green-700 cursor-pointer" onClick={() => UpdateData(task)}></i>
                     <i className="fa-solid fa-trash text-red-600 cursor-pointer" onClick={() => deleteTask(task.id)}></i>
                   </div>
                 </div>
