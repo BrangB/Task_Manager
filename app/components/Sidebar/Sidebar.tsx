@@ -1,6 +1,6 @@
 "use client"
 
-import React, { FormEvent, useState, useRef, useEffect } from 'react'
+import React, { FormEvent, useState, useRef, useEffect, useContext } from 'react'
 import menu from '@/app/utils/menu'
 import Link from 'next/link';
 import { useRouter, usePathname } from "next/navigation";
@@ -10,6 +10,7 @@ import BackBtn from '../ButtonAnimation/BackBtn';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import BtnAnimation from '../ButtonAnimation/BtnAnimation';
+import { GlobalContext } from '@/app/context/GlobalProvider';
 
 const Sidebar = () => {
 
@@ -25,6 +26,7 @@ const Sidebar = () => {
     const [loading, setLoading] = useState(false);
     const router = useRouter();
     const pathname = usePathname();
+    const {globalTasks, setGlobalTasks} = useContext(GlobalContext)
     const titleRef = useRef<HTMLInputElement>(null);
     const descriptionRef = useRef<HTMLInputElement>(null);
     const isSignInRoute = pathname === '/sign-in' || pathname === "/sign-up";
@@ -50,7 +52,7 @@ const Sidebar = () => {
         }else{
             try{
                 setLoading(true);
-                const task = await axios.post("/api/tasks", {
+                const res = await axios.post("/api/tasks", {
                     user_id: user_id,
                     title: formData.title.trim(),
                     description: formData.description.trim(),
@@ -68,7 +70,7 @@ const Sidebar = () => {
                 })
                 setLoading(false);
                 setShowForm(false);
-                router.back();
+                setGlobalTasks([...globalTasks, res.data.task])
             }catch(err){
                 console.log(err);
                 toast.error("Creating New Tasks Fails")

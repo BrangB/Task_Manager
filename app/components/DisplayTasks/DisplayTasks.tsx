@@ -1,11 +1,12 @@
 "use client"
 import { useRouter } from 'next/navigation';
-import React, {useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import { motion } from 'framer-motion';
 import axios from 'axios';
 import EmptyFile from '../ButtonAnimation/EmptyFile';
 import toast from 'react-hot-toast';
 import StatusLoading from '../ButtonAnimation/StatusLoading';
+import { GlobalContext } from '@/app/context/GlobalProvider';
 
 interface DisplayTasksProps {
     displayData: string;
@@ -26,6 +27,8 @@ const DisplayTasks: React.FC<DisplayTasksProps> = ({displayData}) => {
   const [user_id, setUser_id] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const {globalTasks, setGlobalTasks} = useContext(GlobalContext);
+
 useEffect(() => {
   const userLoginString = localStorage.getItem('userLogin');
 
@@ -43,6 +46,7 @@ const fetchData = async () => {
       if (user_id) {
         const tasksfromServer = await axios.post("/api/tasks/gettasks", { user_id });
         setTasks(tasksfromServer.data.tasks);
+        setGlobalTasks(tasksfromServer.data.tasks)
       }
     } catch (error) {
       console.error('Error fetching tasks:', error);
@@ -54,6 +58,7 @@ const fetchImportantTask = async () => {
       if (user_id) { 
         const tasksfromServer = await axios.post("/api/tasks/getimportanttasks", { user_id });
         setTasks(tasksfromServer.data.tasks);
+        setGlobalTasks(tasksfromServer.data.tasks)
       }
     } catch (error) {
       console.error('Error fetching tasks:', error);
@@ -65,6 +70,7 @@ const fetchIncompleteTasks = async () => {
       if (user_id) { 
         const tasksfromServer = await axios.post("/api/tasks/getcompletetasks", { user_id, complete: false });
         setTasks(tasksfromServer.data.tasks);
+        setGlobalTasks(tasksfromServer.data.tasks)
       }
     } catch (error) {
       console.error('Error fetching tasks:', error);
@@ -76,6 +82,7 @@ const completedTasks = async () => {
       if (user_id) { 
         const tasksfromServer = await axios.post("/api/tasks/getcompletetasks", { user_id, complete: true });
         setTasks(tasksfromServer.data.tasks);
+        setGlobalTasks(tasksfromServer.data.tasks)
       }
     } catch (error) {
       console.error('Error fetching tasks:', error);
@@ -104,7 +111,9 @@ const deleteTask = async(id:string) => {
       }
       const task = await axios.delete(`api/tasks/deletetasks`, { data: payload});
       toast.success("Delete Task Successfully")
-      router.back();
+      const newTasks = tasks.filter((task: Task) => task.id !== id);
+      setTasks(newTasks);
+      setGlobalTasks(newTasks)
     }catch(err){
       console.log(err)
       toast.error("Deleting Task Failed!")
@@ -130,6 +139,7 @@ const changeStatus = async(id:string, status: boolean) => {
         return task
       })
       setTasks(updatedTasks)
+      setGlobalTasks(updatedTasks)
       setLoading(false);
       // router.back();
     }catch(err){
@@ -140,11 +150,10 @@ const changeStatus = async(id:string, status: boolean) => {
   }
 }
 
-
   return (
     <>
       {
-        tasks.length > 0 && tasks.map((task : Task, i: number) => {
+        globalTasks.length > 0 && globalTasks.map((task : Task, i: number) => {
           return (
             <motion.div 
               initial={{ opacity: 0, x: -200 }}
@@ -174,7 +183,7 @@ const changeStatus = async(id:string, status: boolean) => {
         })
       }
       {
-        tasks.length == 0 && (
+        globalTasks.length == 0 && (
           <motion.div 
           initial={{ opacity:0 , scale: .2}}
           animate={{ opacity:1 , scale: 1 }}
