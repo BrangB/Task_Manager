@@ -116,7 +116,7 @@ const Sidebar = () => {
                 transition={{ duration: .4  }}
                 className={`fixed bottom-0 w-full text-black shadow-xl bg-[#ffffff] rounded-t-xl flex flex-col py-3 items-center justify-center z-40`}>
                     <ul className="nav-items w-full flex gap-6 p-2 px-3 items-center justify-center relative">
-                        <div className='absolute -top-9 creatTaskBtn p-4 rounded-full flex items-center justify-center scale-90 duration-150 hover:scale-105' onClick={() => setShowForm(!showForm)}>
+                        <div className=' animate-bounce absolute -top-9 creatTaskBtn p-4 rounded-full flex items-center justify-center scale-90 duration-150 hover:scale-105' onClick={() => setShowForm(!showForm)}>
                             <CreateBtn />
                         </div>
                         {
