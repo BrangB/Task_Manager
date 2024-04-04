@@ -5,25 +5,26 @@ import { motion } from 'framer-motion';
 import axios from 'axios';
 import EmptyFile from '../ButtonAnimation/EmptyFile';
 import toast from 'react-hot-toast';
+import StatusLoading from '../ButtonAnimation/StatusLoading';
 
 interface DisplayTasksProps {
     displayData: string;
   }
 
+interface Task {
+    id: string;
+    title: string;
+    description: string;
+    date: string;
+    isCompleted: boolean;
+  }
+
 const DisplayTasks: React.FC<DisplayTasksProps> = ({displayData}) => {
 
   const router = useRouter();
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [user_id, setUser_id] = useState("");
-
-
-interface Task {
-  id: string;
-  title: string;
-  description: string;
-  date: string;
-  isCompleted: boolean;
-}
+  const [loading, setLoading] = useState(false);
 
 useEffect(() => {
   const userLoginString = localStorage.getItem('userLogin');
@@ -111,6 +112,34 @@ const deleteTask = async(id:string) => {
   }
 };
 
+const changeStatus = async(id:string, status: boolean) => {
+  if(id){
+    setLoading(true);
+    try{
+      const payload : object = {
+        taskId : id,
+        isCompleted : status
+      }
+      const task = await axios.post(`api/tasks/updatestatus`, { data: payload});
+      toast.success("Update Successfully")
+
+      let updatedTasks = tasks.map((task : Task) => {
+        if(task.id === id) {
+          return {...task , isCompleted : !task.isCompleted}
+        }
+        return task
+      })
+      setTasks(updatedTasks)
+      setLoading(false);
+      // router.back();
+    }catch(err){
+      console.log(err)
+      toast.error("Updating Status Failed!");
+      setLoading(false);
+    }
+  }
+}
+
 
   return (
     <>
@@ -130,7 +159,10 @@ const deleteTask = async(id:string) => {
               <div className='flex flex-col gap-2'>
                 <span className="date text-[14px] text-gray-700">{task.date}</span>
                 <div className='flex items-center justify-between gap-3 flex-wrap'>
-                  <span className={`px-2 py-1 ${task.isCompleted ? 'bg-green-500' : 'bg-yellow-500'} text-sm text-white rounded-sm cursor-pointer`}>{task.isCompleted ? 'Completed' : 'Incomplete'}</span>
+                <span 
+                  className={`w-[90px] h-[25px] px-2 ${task.isCompleted ? 'bg-green-500' : 'bg-yellow-500'} text-sm text-white rounded-sm cursor-pointer flex items-center justify-center`} onClick={() => changeStatus(task.id, task.isCompleted)}>
+                  {loading ? <StatusLoading /> : (task.isCompleted ? 'Completed' : 'Incomplete')}
+                </span>
                   <div className="icons flex gap-5 text-md mt-1">
                     <i className="fa-solid fa-pen-to-square text-green-700 cursor-pointer"></i>
                     <i className="fa-solid fa-trash text-red-600 cursor-pointer" onClick={() => deleteTask(task.id)}></i>
