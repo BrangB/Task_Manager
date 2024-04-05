@@ -21,11 +21,13 @@ interface Task {
     isCompleted: boolean;
   }
 
+
+
 const DisplayTasks: React.FC<DisplayTasksProps> = ({displayData}) => {
 
   const router = useRouter();
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [selectedTask, setSelectedTask] = useState({});
+  const [selectedTask, setSelectedTask] = useState<any>({});
   const [user_id, setUser_id] = useState("");
   const [loading, setLoading] = useState(false);
 
