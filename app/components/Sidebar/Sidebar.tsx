@@ -118,14 +118,14 @@ const Sidebar = () => {
                 transition={{ duration: .4  }}
                 className={`fixed bottom-0 md:bottom-6 w-full md:w-[500px] text-black shadow-xl bg-[#ffffff] rounded-t-xl md:rounded-2xl flex flex-col py-3 items-center justify-center z-40`}>
                     <ul className="nav-items w-full flex gap-4 sm:gap-6 p-2 px-3 items-center justify-center relative">
-                        <div className='animate-bounce absolute -top-9 creatTaskBtn p-3 sm:p-4 rounded-full flex items-center justify-center scale-90 duration-150 hover:scale-105' onClick={() => setShowForm(!showForm)}>
+                        <div className='animate-bounce absolute -top-9 creatTaskBtn p-4 rounded-full flex items-center justify-center scale-90 duration-150 hover:scale-105' onClick={() => setShowForm(!showForm)}>
                             <CreateBtn />
                         </div>
                         {
                             menu.map((item) => {
                                 return(
                                     <li className={`nav-item flex flex-col gap-2 items-center justify-center duration-200 w-full text-[#000000b9] py-1 hover:text-green-600 rounded-[3px] ${pathname == item.link ? 'border-b-3 border-green-600 text-green-500' : ''}`} key={item.id} onClick={() => handlerClick(item.link)}>
-                                        <p className='text-sm sm:text-md xl:text-lg'>{item.icon}</p>
+                                        <p className='text-md xl:text-lg'>{item.icon}</p>
                                         <Link href={item.link} className='text-[13px] sm:text-sm xl:text-md flex items-center text-center truncate font-[500]'>{item.title}</Link>
                                     </li>
                                 )

@@ -4,7 +4,7 @@ import ct from "@/lottie/ct.json"
 
 const CreateBtn = () => {
   return (
-    <div className='w-[23px] sm:w-[25px] flex items-center justify-center rotate-45'>
+    <div className='w-[25px] flex items-center justify-center rotate-45'>
       <Lottie
         animationData={ct}
         className="flex justify-center items-center"

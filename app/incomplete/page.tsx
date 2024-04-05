@@ -17,7 +17,7 @@ const page = () => {
        className='p-6'>
         <PageTitle title = "Do it Now!" />
       </motion.h1>
-      <div className="tasks flex flex-wrap md:px-6 lg:px-8 md:py-3 items-start justify-center gap-4 sm:gap-6 mt-3 md:gap-8 xl:gap-10 h-auto max-h-[600px] overflow-x-hidden overflow-y-scroll scrollbar-hide ">
+      <div className="tasks flex flex-wrap md:px-6 lg:px-8 md:py-3 items-start justify-center gap-5 mt-3 md:gap-8 xl:gap-10 h-auto max-h-[600px] overflow-x-hidden overflow-y-scroll scrollbar-hide ">
           <DisplayTasks displayData='incomplete' />
       </div>
     </div>

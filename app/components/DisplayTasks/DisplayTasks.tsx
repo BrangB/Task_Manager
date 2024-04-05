@@ -175,9 +175,9 @@ const UpdateData = (task : object) => {
               initial={{ opacity: 0, x: -200 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ x: -200, opacity: 0 }}
-              transition={{ duration: 0.4, delay: (0.3 * i) + .2 }}     
+              transition={{ duration: 0.3, delay: (0.3 * i) + .1 }}     
               key={task.id}
-              className="task p-4 w-[130px] h-[160px] sm:w-[150px] md:w-[200px] min-h-[160px] sm:h-[180px] md:h-[210px] 2xl:w-[260px] 2xl:h-[270px] bg-white rounded-md flex flex-col items-center justify-between cursor-pointer"
+              className="task p-4 w-[145px] h-[170px] sm:w-[150px] md:w-[200px] min-h-[160px] sm:h-[180px] md:h-[210px] 2xl:w-[260px] 2xl:h-[270px] bg-white rounded-md flex flex-col items-center justify-between cursor-pointer"
             >
               <h1 className="title text-[18px] md:text-[19px] xl:text-[20px] 2xl:text-[24px] text-green-700 font-bold text-left testWrap">{task.title}</h1>
               <p className='text-[13px] md:text-[15px] 2xl:text-[17px] text-gray-600 text-left w-full max-h-[50px] md:max-h-[70px] xl:h-[95px] hidden md:flex mt-1 line-clamp-1 overflow-hidden text-wrap'>{task.description}</p>
