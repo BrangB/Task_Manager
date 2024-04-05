@@ -8,7 +8,7 @@ import PageTitle from '../components/PageTitle/PageTitle';
 const page = () => {
 
   return (
-    <div className='h-screen w-screen overflow-hidden'>
+    <div className='h-screen w-screen overflow-hidden md:px-8 md:py-4'>
       <motion.h1
         initial={{ opacity:0 , x: -100}}
         animate={{ opacity:1 , x: 0 }}
@@ -17,7 +17,7 @@ const page = () => {
        className='p-6'>
         <PageTitle title = "Do it Now!" />
       </motion.h1>
-      <div className="tasks flex flex-wrap mt-2 items-start justify-center gap-6 h-auto max-h-[600px] overflow-x-hidden overflow-y-scroll scrollbar-hide ">
+      <div className="tasks flex flex-wrap md:px-6 lg:px-8 md:py-3 items-start justify-center gap-4 sm:gap-6 mt-3 md:gap-8 xl:gap-10 h-auto max-h-[600px] overflow-x-hidden overflow-y-scroll scrollbar-hide ">
           <DisplayTasks displayData='incomplete' />
       </div>
     </div>
